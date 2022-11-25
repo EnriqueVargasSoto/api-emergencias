@@ -26,13 +26,13 @@ class UsuarioController extends Controller
             } else {
                 $respuesta = [
                     'codigo' => '500',
-                    'data' => 'La contraseña es incorrecta'
+                    'data' => 'La contraseña es incorrecta.'
                 ];
             }
         } else {
             $respuesta = [
                 'codigo' => '500',
-                'data' => 'El usuario no existe'
+                'data' => 'El usuario no existe.'
             ];
         }
 
@@ -61,6 +61,7 @@ class UsuarioController extends Controller
                 'idRol' => 2,
                 'nombres' => $data['nombres'],
                 'email' => $data['email'],
+                'estado' => 'activo',
                 'password' => Hash::make($data['password']),
                 'image' => $urltemp
             ]);
@@ -71,7 +72,7 @@ class UsuarioController extends Controller
         } else {
             $respuesta =  [
                 'codigo' => '500',
-                'data' => 'El correo ya fue registrado'
+                'data' => 'El correo ya fue registrado.'
             ];
         }
         
