@@ -27,6 +27,8 @@ class UsuarioController extends Controller
             $constraint->aspectRatio();
         })->save('img/' . $urltemp);
 
+        $usuario = User::where('email', $data['email'])->first();
+
         $user = User::create([
             'idRol' => 2,
             'nombres' => $data['nombres'],
@@ -35,7 +37,27 @@ class UsuarioController extends Controller
             'image' => $urltemp
         ]);
 
-        return json_encode($user);
+        if ($usuario) {
+            $user = User::create([
+                'idRol' => 2,
+                'nombres' => $data['nombres'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'image' => $urltemp
+            ]);
+            $request = [
+                'codigo' => '200',
+                'data' => $user
+            ];
+        } else {
+            $respuesta =  [
+                'codigo' => '500',
+                'data' => 'El correo ya fue registrado'
+            ];
+        }
+        
+
+        return json_encode($respuesta);
 
     }
 
