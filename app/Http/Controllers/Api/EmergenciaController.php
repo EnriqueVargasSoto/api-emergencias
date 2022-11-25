@@ -33,4 +33,16 @@ class EmergenciaController extends Controller
         
         return json_encode($respuesta);
     }
+
+    public function listEmergencia($id) {
+
+        $emergencias = Emergencia::where('idUsuario', $id)->get();
+
+        $respuesta = [
+            'codigo' => '200',
+            'data' => $emergencias
+        ];
+
+        return json_encode($respuesta);
+    }
 }
