@@ -11,6 +11,33 @@ class UsuarioController extends Controller
 {
     public function login(Request $request) {
 
+        $data = $request->json()->all();
+
+        $user = User::where('email', $data['email'])->first();
+
+        if (isset($user->id)) {
+            if (Hash::check($request->password, $user->password)) {
+                //$token = $user->createToken("auth_token")->plainTextToken;
+                
+                $respuesta = [
+                    'codigo' => '200',
+                    'data' => $user
+                ];
+            } else {
+                $respuesta = [
+                    'codigo' => '500',
+                    'data' => 'La contraseña es incorrecta'
+                ];
+            }
+        } else {
+            $respuesta = [
+                'codigo' => '500',
+                'data' => 'El usuario no existe'
+            ];
+        }
+
+        return json_encode($respuesta);
+
     }
 
     public function registro(Request $request) {
@@ -28,14 +55,6 @@ class UsuarioController extends Controller
         })->save('img/' . $urltemp);
 
         $usuario = User::where('email', $data['email'])->first();
-
-        /*$user = User::create([
-            'idRol' => 2,
-            'nombres' => $data['nombres'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'image' => $urltemp
-        ]);*/
 
         if (!$usuario) {
             $user = User::create([
