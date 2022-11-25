@@ -45,7 +45,7 @@ class UsuarioController extends Controller
                 'password' => Hash::make($data['password']),
                 'image' => $urltemp
             ]);
-            $request = [
+            $respuesta = [
                 'codigo' => '200',
                 'data' => $user
             ];
