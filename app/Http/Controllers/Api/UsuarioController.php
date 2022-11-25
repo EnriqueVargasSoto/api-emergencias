@@ -16,7 +16,7 @@ class UsuarioController extends Controller
         $user = User::where('email', $data['email'])->first();
 
         if (isset($user->id)) {
-            if (Hash::check($request->password, $user->password)) {
+            if (Hash::check($data['password'], $user->password)) {
                 //$token = $user->createToken("auth_token")->plainTextToken;
                 
                 $respuesta = [
