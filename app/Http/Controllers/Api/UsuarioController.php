@@ -29,15 +29,15 @@ class UsuarioController extends Controller
 
         $usuario = User::where('email', $data['email'])->first();
 
-        $user = User::create([
+        /*$user = User::create([
             'idRol' => 2,
             'nombres' => $data['nombres'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'image' => $urltemp
-        ]);
+        ]);*/
 
-        if ($usuario == null) {
+        if (!$usuario) {
             $user = User::create([
                 'idRol' => 2,
                 'nombres' => $data['nombres'],
