@@ -37,7 +37,7 @@ class UsuarioController extends Controller
             'image' => $urltemp
         ]);
 
-        if (!$usuario) {
+        if ($usuario == null) {
             $user = User::create([
                 'idRol' => 2,
                 'nombres' => $data['nombres'],
