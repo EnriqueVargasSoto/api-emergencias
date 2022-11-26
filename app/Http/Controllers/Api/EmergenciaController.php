@@ -45,4 +45,5 @@ class EmergenciaController extends Controller
 
         return json_encode($respuesta);
     }
+
 }

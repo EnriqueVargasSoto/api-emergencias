@@ -22,5 +22,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('registro', [UsuarioController::class, 'registro']);
 Route::post('login', [UsuarioController::class, 'login']);
+Route::post('update-perfil', [UsuarioController::class, 'updateUsuario']);
 Route::post('btn-emergencia', [EmergenciaController::class, 'btnEmergencia']);
 Route::get('list-emergencia/{id}', [EmergenciaController::class, 'listEmergencia']);

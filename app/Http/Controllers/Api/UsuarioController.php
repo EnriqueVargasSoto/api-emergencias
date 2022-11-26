@@ -48,8 +48,6 @@ class UsuarioController extends Controller
 
         $urltemp = "avatar/".$data['nombres'].time().'foto' . '_avatar'.'.jpeg';
 
-        //$ruta = public_path("avatar/");
-
         $img = \Image::make($image)->resize(400, null, function ($constraint) {
             $constraint->aspectRatio();
         })->save('img/' . $urltemp);
@@ -99,5 +97,49 @@ class UsuarioController extends Controller
         return $image; 
         
         
-   }
+    }
+
+    public function updateUsuario(Request $request) {
+
+        $data = $request->json()->all();
+
+        if ($data['image'] != '') {
+            $image = $this->getB64Image($data['image']);
+
+            $urltemp = "avatar/".$data['nombres'].time().'foto' . '_avatar'.'.jpeg';
+
+            $img = \Image::make($image)->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save('img/' . $urltemp);
+
+        }
+        
+        $usuario = User::find($data['idUsuario']);
+
+        if ($usuario) {
+
+            $usuario->nombres = $data['nombres'];
+            if ($data['image'] != '') {
+                $usuario->image = $urltemp;
+            }
+            $usuario->password = Hash::make($data['password']);
+            $usuario->save();
+
+            $respuesta = [
+                'codigo' => '200',
+                'data' => 'Perfil Actualizado.'
+            ];
+
+        } else {
+            
+            $respuesta =  [
+                'codigo' => '500',
+                'data' => 'Hubo un problema al actualizar tus datos.'
+            ];
+
+        }
+        
+        return json_encode($respuesta);
+
+    }
 }
