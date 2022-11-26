@@ -127,7 +127,7 @@ class UsuarioController extends Controller
 
             $respuesta = [
                 'codigo' => '200',
-                'data' => 'Perfil Actualizado.'
+                'data' => $usuario
             ];
 
         } else {
