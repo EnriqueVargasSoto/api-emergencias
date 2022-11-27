@@ -46,7 +46,9 @@ class UsuarioController extends Controller
 
         $image = $this->getB64Image($data['image']);
 
-        $urltemp = "avatar/".$data['nombres'].time().'foto' . '_avatar'.'.jpeg';
+        $extension = $this->getB64Extension($foto);
+
+        $urltemp = "avatar/".$data['nombres'].'foto_avatar'.$extension;//'.jpeg';
 
         $img = \Image::make($image)->resize(400, null, function ($constraint) {
             $constraint->aspectRatio();
