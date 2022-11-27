@@ -44,7 +44,7 @@ class UsuarioController extends Controller
 
         $data = $request->json()->all();
 
-        $return $data;
+        return $data;
 
         $image = $this->getB64Image($data['image']);
 
